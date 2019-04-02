@@ -1,0 +1,5 @@
+compile:
+g++ kalman_filter.cpp tracking.cpp main.cpp -o ekf
+
+execute:
+./ekf
