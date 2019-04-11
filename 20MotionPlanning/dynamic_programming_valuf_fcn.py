@@ -33,7 +33,29 @@ grid = [[1, 1, 1, 0, 0, 0],
         [1, 1, 1, 0, 1, 1],
         [1, 1, 1, 0, 1, 1]]
 
-init = [4, 3, 0] # given in the form [row,col
+init = [4, 3, 0] # given in the form [row,col,direction]
+                 # direction = 0: up
+                 #             1: left
+                 #             2: down
+                 #             3: right
+                
+goal = [2, 0] # given in the form [row,col]
+
+cost = [2, 1, 20] # cost has 3 values, corresponding to making 
+                  # a right turn, no turn, and a left turn
+
+# EXAMPLE OUTPUT:
+# calling optimum_policy2D with the given parameters should return 
+# [[' ', ' ', ' ', 'R', '#', 'R'],
+#  [' ', ' ', ' ', '#', ' ', '#'],
+#  ['*', '#', '#', '#', '#', 'R'],
+#  [' ', ' ', ' ', '#', ' ', ' '],
+#  [' ', ' ', ' ', '#', ' ', ' ']]
+# ----------
+
+# ----------------------------------------
+# modify code below
+# ----------------------------------------
 
 def optimum_policy(grid,goal,cost):
     # ----------------------------------------
@@ -71,20 +93,23 @@ def optimum_policy(grid,goal,cost):
                             x2 = x + forward[o2][0]
                             y2 = y + forward[o2][1]
 
-                        for a in range(len(delta)):
-                            x2 = x + delta[a][0]
-                            y2 = y + delta[a][1]
-
                             if x2 >= 0 and x2 < len(grid) and y2 >= 0 and y2 < len(grid[0]) and grid[x2][y2] == 0:
-                                v2 = value[x2][y2] + cost
+                                v2 = value[O2][x2][y2] + cost[i]
 
-                                if v2 < value[x][y]:
+                                if v2 < value[orientation][x][y]:
                                     change = True
-                                    value[x][y] = v2
-                                    policy[x][y] = delta_name[a]
+                                    value[orientation][x][y] = v2
+                                    policy[orientation][x][y] = delta_name[a]
 
     return policy
 
 policy = optimum_policy(grid,goal,cost)
+
+x  = init[0]
+y  = init[1]
+orientation  = init[2]
+
+policy2D[x][y] = 
+
 for i in policy:
     print(i)
